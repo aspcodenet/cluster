@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stefan
+  namespace: yatest
+  labels:
+    app: stefan
+spec:
+  replicas: 3 #scale out!!!!
+  selector:
+    matchLabels:
+      app: stefan
+  template:
+    metadata:
+      labels:
+        app: stefan
+    spec:
+      containers:
+        - name: stefan
+          image: stefanholmberg/yagolangapi
+          ports:
+            - containerPort: 5000
+          env:
+            - name: RUNENVIRONMENT
+              value: Production
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: yatest
+  name: stefan-service
+  labels:
+    app: stefan
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: stefan
+  sessionAffinity: None

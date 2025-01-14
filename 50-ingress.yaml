@@ -17,6 +17,16 @@ spec:
                 name: yagolangsite-service
                 port:
                   number: 80
+    - host: "stefanpython0113.ignorelist.com"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: stefan-service
+                port:
+                  number: 80
     - host: "stefanssuperdupersajt.chickenkiller.com"
       http:
         paths:
